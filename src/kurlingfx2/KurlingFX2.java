@@ -164,7 +164,7 @@ public class KurlingFX2 extends Application {
             ret.set("topX",iceWide/2+stroke-radius);
             ret.set("topY", 2*aFoot+stroke-3*radius);
             
-           //walls = TOP | BOTTOM | SIDES;
+           //walls = TOP | BOTTOM | SIDES; //walls up
             walls = 0;
             ret.set("walls",walls);
             double[] btnLoc = {(7+ofsX)*aFoot+padding-radius,
@@ -174,7 +174,6 @@ public class KurlingFX2 extends Application {
             rockLoc[x] = padding+padding;
             rockLoc[y] = (31+ofsY)*aFoot+padding-diameter;
             ret.set("rockBox",rockLoc);
-            double curlDir = Math.signum(Math.random()-0.5);
             ret.set("walls",walls);
             ret.set("TOP",TOP);
             ret.set("BOTTOM",BOTTOM);
@@ -185,16 +184,13 @@ public class KurlingFX2 extends Application {
             ret.set("player1","Token AtKenz");
             ret.set("player2","Kurlin AtKenz");
             //ret.set("sceneColor",Color.MIDNIGHTBLUE);
-            ret.set("maxSpeed",(double)8000);
-            ret.set("maxCurl",(double)8000);
+            ret.set("maxSpeed",(double)8600);
+            ret.set("maxCurl",(double)8600);
             ret.set("sceneColor",Color.STEELBLUE);
             ret.set("dnColor",Color.ROSYBROWN);
             ret.set("hzColor",Color.ROSYBROWN);
        return ret;
     }
-
-
-    
     
     private Button mkButton(String s,double x,double y,double w,double h){
             Button b = new Button(s);
