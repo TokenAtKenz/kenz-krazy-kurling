@@ -195,15 +195,20 @@ public class Rock{
                 hitRock.rockVector.setVector();
                 
                //****curl transfer section
-                final double c1Out = fp1*curlVector.size;
-                final double c1In = curlVector.size-c1Out;
-                final double c2Out = fp1*hitRock.curlVector.size;
-                final double c2In = hitRock.curlVector.size-c2Out;
+                //final double c1Out = fp1*curlVector.size;
+                //final double c1In = curlVector.size-c1Out;
+                final double c1Out = 0.5*curlVector.size;
+                final double c1In = 0.5*curlVector.size;
+                //final double c2Out = fp1*hitRock.curlVector.size;
+                //final double c2In = hitRock.curlVector.size-c2Out;
+                final double c2Out = 0.5*hitRock.curlVector.size;
+                final double c2In = 0.5*hitRock.curlVector.size;
                 
                 
                 //if(c1Out > c2Out){hitRock.curlDir = curlDir;curlDir = -curlDir;}
                 //else{curlDir = hitRock.curlDir;hitRock.curlDir = -hitRock.curlDir;}
-                hitRock.curlDir = -curlDir;
+                hitRock.curlDir = curlDir;
+                curlDir = -curlDir;
                 curlVector.size = (c1In + c2Out);
                 hitRock.curlVector.size = (c1Out + c2In);
                 curlVector.setDelta();
