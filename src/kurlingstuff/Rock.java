@@ -197,12 +197,12 @@ public class Rock{
                //****curl transfer section
                 //final double c1Out = fp1*curlVector.size;
                 //final double c1In = curlVector.size-c1Out;
-                final double c1Out = 0.5*curlVector.size;
-                final double c1In = 0.5*curlVector.size;
+                final double c1Out = (1-fp1)*curlVector.size;
+                final double c1In = curlVector.size-c1Out;
                 //final double c2Out = fp1*hitRock.curlVector.size;
                 //final double c2In = hitRock.curlVector.size-c2Out;
-                final double c2Out = 0.5*hitRock.curlVector.size;
-                final double c2In = 0.5*hitRock.curlVector.size;
+                final double c2Out = (1-fp1)*hitRock.curlVector.size;
+                final double c2In = hitRock.curlVector.size - c2Out;
                 
                 
                 //if(c1Out > c2Out){hitRock.curlDir = curlDir;curlDir = -curlDir;}
@@ -211,6 +211,7 @@ public class Rock{
                 curlDir = -curlDir;
                 curlVector.size = (c1In + c2Out);
                 hitRock.curlVector.size = (c1Out + c2In);
+                //System.out.println("c1In["+c1In+"] c1Out["+c1Out+"]  c2In["+c2In+"] c2Out["+c2Out+"]");
                 curlVector.setDelta();
                 hitRock.curlVector.setDelta();
 
