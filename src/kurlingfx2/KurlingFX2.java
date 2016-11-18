@@ -184,8 +184,8 @@ public class KurlingFX2 extends Application {
             ret.set("player1","Token AtKenz");
             ret.set("player2","Kurlin AtKenz");
             //ret.set("sceneColor",Color.MIDNIGHTBLUE);
-            ret.set("maxSpeed",(double)8600);
-            ret.set("maxCurl",(double)8600);
+            ret.set("maxSpeed",(double)8700);
+            ret.set("maxCurl",(double)8700);
             ret.set("sceneColor",Color.STEELBLUE);
             ret.set("dnColor",Color.ROSYBROWN);
             ret.set("hzColor",Color.ROSYBROWN);
