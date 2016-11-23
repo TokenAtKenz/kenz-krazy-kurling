@@ -156,10 +156,10 @@ public class KurlingFX2 extends Application {
             ret.set("ofsX",ofsX*aFoot+padding);
             ret.set("ofsY",ofsY*aFoot+padding);
             ret.set("baseFriction",(double)0.007);//(aFoot * 0.001));
-            ret.set("curlFricFrac",(double)0.72); //curl friction % of friction
+            ret.set("curlFricFrac",(double)0.70); //curl friction % of friction
             ret.set("fricFrac",(double)0.30); //% friction variance to the edges
             ret.set("curlRatioSize",(double)0.15); //curl factor on forward motion
-            ret.set("thud",(double).82);
+            ret.set("thud",(double).78);
             ret.set("gameType","SHOOT");
             ret.set("topX",iceWide/2+stroke-radius);
             ret.set("topY", 2*aFoot+stroke-3*radius);

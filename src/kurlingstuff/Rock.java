@@ -193,25 +193,33 @@ public class Rock{
                 hitRock.rockVector.deltaX += hitVector.deltaX;
                 hitRock.rockVector.deltaY += hitVector.deltaY;
                 hitRock.rockVector.setVector();
+                System.out.println("curlDir["+curlDir+"] curlVectorSize["+curlVector.size+
+                                "]  hitCurlDir["+hitRock.curlDir+"] hitSize["+hitRock.curlVector.size+"]");
                 
                //****curl transfer section
-                //final double c1Out = fp1*curlVector.size;
+                final double c1Out = 0.5*curlVector.size * curlDir;
                 //final double c1In = curlVector.size-c1Out;
-                final double c1Out = (1-fp1)*curlVector.size;
-                final double c1In = curlVector.size-c1Out;
-                //final double c2Out = fp1*hitRock.curlVector.size;
+                //final double c1Out = (1-fp1)*curlVector.size;
+                //final double c1In = curlVector.size-c1Out;
+                final double c2Out = 0.5*hitRock.curlVector.size * hitRock.curlDir;
                 //final double c2In = hitRock.curlVector.size-c2Out;
-                final double c2Out = (1-fp1)*hitRock.curlVector.size;
-                final double c2In = hitRock.curlVector.size - c2Out;
+                //final double c2Out = (1-fp1)*hitRock.curlVector.size;
+                //final double c2In = hitRock.curlVector.size - c2Out;
                 
                 
                 //if(c1Out > c2Out){hitRock.curlDir = curlDir;curlDir = -curlDir;}
                 //else{curlDir = hitRock.curlDir;hitRock.curlDir = -hitRock.curlDir;}
-                hitRock.curlDir = curlDir;
-                curlDir = -curlDir;
-                curlVector.size = (c1In + c2Out);
-                hitRock.curlVector.size = (c1Out + c2In);
-                //System.out.println("c1In["+c1In+"] c1Out["+c1Out+"]  c2In["+c2In+"] c2Out["+c2Out+"]");
+                //hitRock.curlDir = -curlDir;
+                //curlDir = -curlDir;
+                curlVector.size = (c1Out - c2Out);
+                curlDir = Math.signum(curlVector.size);
+                curlVector.size = Math.abs(curlVector.size);
+                
+                hitRock.curlVector.size = (c2Out - c1Out);
+                hitRock.curlDir = Math.signum(curlVector.size);
+                hitRock.curlVector.size = Math.abs(curlVector.size); 
+                System.out.println("curlDir["+curlDir+"] c1Out["+curlVector.size+
+                        "]  hitCurlDir["+hitRock.curlDir+"] c2Out["+hitRock.curlVector.size+"]");
                 curlVector.setDelta();
                 hitRock.curlVector.setDelta();
 
@@ -252,7 +260,7 @@ public class Rock{
            if(curlRatio <= 0){curlRatio = curlRatioSize;}//sweeping for .1
            curlRatio = curlRatio * curlRatioSize;     
            if(curlVector.size>0){
-           rockVector.angle -= curlRatio*curlDir*friction;}
+           rockVector.angle -= curlRatio*curlDir*curlFriction;}
            //rockVector.angle = rockVector.fixedAngle(rockVector.angle);
            rockVector.setDelta();
     }
