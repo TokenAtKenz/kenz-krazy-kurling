@@ -197,8 +197,9 @@ public class PaintedRockGroup extends Group{
         pRock.rock.setWalls(rockWalls);
         pRock.rock.setMoveable(true);
         retSeq.getChildren().add(parallelSequence(pRock,runTime));
+        
         pRock.rock.move(rocks());
-        //printIt("creating motionRock movie for *["+pRock.getId()+"]*");
+        
         ParallelTransition groupSeq;
         boolean stop = false;
         PaintedRock aRock;

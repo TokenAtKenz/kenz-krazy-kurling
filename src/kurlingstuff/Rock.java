@@ -96,6 +96,9 @@ public class Rock{
     public void setWalls(int newWalls){
         walls = newWalls;
     }
+    public boolean isMoveable(){
+        return moveable;
+    }
     
     public boolean inRings(KurlParams params){
         final int aFoot = (int)params.get("footSize");
@@ -193,8 +196,8 @@ public class Rock{
                 hitRock.rockVector.deltaX += hitVector.deltaX;
                 hitRock.rockVector.deltaY += hitVector.deltaY;
                 hitRock.rockVector.setVector();
-                System.out.println("curlDir["+curlDir+"] curlVectorSize["+curlVector.size+
-                                "]  hitCurlDir["+hitRock.curlDir+"] hitSize["+hitRock.curlVector.size+"]");
+                //System.out.println("curlDir["+curlDir+"] curlVectorSize["+curlVector.size+
+                 //               "]  hitCurlDir["+hitRock.curlDir+"] hitSize["+hitRock.curlVector.size+"]");
                 
                //****curl transfer section
                 final double c1Out = 0.5*curlVector.size * curlDir;
@@ -218,8 +221,8 @@ public class Rock{
                 hitRock.curlVector.size = (c2Out - c1Out);
                 hitRock.curlDir = Math.signum(curlVector.size);
                 hitRock.curlVector.size = Math.abs(curlVector.size); 
-                System.out.println("curlDir["+curlDir+"] c1Out["+curlVector.size+
-                        "]  hitCurlDir["+hitRock.curlDir+"] c2Out["+hitRock.curlVector.size+"]");
+                //System.out.println("curlDir["+curlDir+"] c1Out["+curlVector.size+
+                //        "]  hitCurlDir["+hitRock.curlDir+"] c2Out["+hitRock.curlVector.size+"]");
                 curlVector.setDelta();
                 hitRock.curlVector.setDelta();
 

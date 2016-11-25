@@ -75,7 +75,7 @@ public class PaintedBroom extends Canvas{
                         } else {newX = e.getSceneX();}
                 }
                 
-                pRock.moveRock(newX);
+                pRock.moveRock(newX,pRock.rock.center[y]);
             }
     }
     

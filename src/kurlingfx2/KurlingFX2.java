@@ -656,6 +656,9 @@ public class KurlingFX2 extends Application {
             downArrow.setLayoutY(ofsY*aFoot+padding+1);
         root.getChildren().add(downArrow);
         
+         
+        
+        
         PaintedArrow leftArrow = new PaintedArrow(appParams,7*aFoot,aFoot,1);
             leftArrow.setId("leftArrow");
             leftArrow.setLayoutX(ofsX*aFoot+padding);
