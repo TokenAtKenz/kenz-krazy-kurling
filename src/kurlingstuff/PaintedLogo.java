@@ -31,7 +31,7 @@ private void paintLogo(KurlParams params, int w,int h){
         g.fillRect(stroke,stroke,w-2*stroke,h-2*stroke);
         g.setTextAlign(TextAlignment.CENTER);
         g.setStroke(Color.LIME); 
-        g.strokeText("Kenz Krazy Kurling FX",w/2,h-3*stroke,w-4*stroke); 
+        g.strokeText("Kenz JavaFX Kurling",w/2,h-4*stroke,w-5*stroke); 
         }    
 } 
 
