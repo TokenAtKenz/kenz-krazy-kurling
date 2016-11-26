@@ -33,6 +33,7 @@ public class PaintedRock extends Canvas {
     private final boolean sset = false;
     private KurlParams params;
     private SequentialTransition lastShot = null;
+    private boolean freeGuard;
     //private final Rectangle2D hackRect;
     
     /**
@@ -51,11 +52,31 @@ public class PaintedRock extends Canvas {
         pCenter[x]=diameter/2;
         pCenter[y]=diameter/2;
         rock = newRock(params);
+        freeGuard = false;
         paintRock();
     }
    @Override
    public String toString(){
        return getId();
+   }
+   /**
+    * returns the rock color as type Color
+    * @return Color
+    */
+   public Color rCol(){
+       if(getId().contains("red")){
+           return Color.RED;
+       } else {
+           return Color.YELLOW;
+       }
+   }
+   /**
+    * returns the rock number as type integer
+    * @return int 
+    */
+   public int rNum(){
+       String[] tokens = getId().split("[ ]+");
+        return Integer.valueOf(tokens[2]);
    }
    /**
     * used by paintedBroom to move the rock. Movement is limited to make
