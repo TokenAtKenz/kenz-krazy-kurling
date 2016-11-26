@@ -267,7 +267,8 @@ public class KurlingFX2 extends Application {
              t.setText("KurlingFX.in.JavaFX  Verision.1.0    "+
                          "      copyright.c.2016.BETA-VERSION       "+
                          "          all.rights.reserved             "+
-                         "       for.testing.and.demo.only.         ");
+                         "       for.testing.and.demo.only.         "+
+                         "       mailTo:ken_in_van@hotmail.com");
              alert.setContentText(t.getText());
              alert.showAndWait();
          });
