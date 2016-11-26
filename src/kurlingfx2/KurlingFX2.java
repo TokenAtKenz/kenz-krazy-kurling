@@ -257,7 +257,7 @@ public class KurlingFX2 extends Application {
          
          ret.setOnAction((ActionEvent e) -> {
              Alert alert = new Alert(AlertType.INFORMATION);
-             alert.setTitle("Kenz Krazy Kurling FX");
+             alert.setTitle("Kenz JavaFX Kurling");
              alert.setHeaderText(null);
              Text t = new Text();
              t.setFont(new Font(20));
