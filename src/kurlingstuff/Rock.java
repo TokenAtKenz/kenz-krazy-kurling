@@ -179,7 +179,7 @@ public class Rock{
                 }
                 
                 double fp1 = getPrctOut(rockVector.angle,hitVector.angle);
-                //double fp2 = getPrctOut(hitRock.rockVector.angle,hitRock.hitVector.angle);
+                double fp2 = getPrctOut(hitRock.rockVector.angle,hitRock.hitVector.angle);
                 
                 
                 
@@ -200,29 +200,17 @@ public class Rock{
                  //               "]  hitCurlDir["+hitRock.curlDir+"] hitSize["+hitRock.curlVector.size+"]");
                 
                //****curl transfer section
-                final double c1Out = 0.5*curlVector.size * curlDir;
-                //final double c1In = curlVector.size-c1Out;
-                //final double c1Out = (1-fp1)*curlVector.size;
-                //final double c1In = curlVector.size-c1Out;
-                final double c2Out = 0.5*hitRock.curlVector.size * hitRock.curlDir;
-                //final double c2In = hitRock.curlVector.size-c2Out;
-                //final double c2Out = (1-fp1)*hitRock.curlVector.size;
-                //final double c2In = hitRock.curlVector.size - c2Out;
-                
-                
-                //if(c1Out > c2Out){hitRock.curlDir = curlDir;curlDir = -curlDir;}
-                //else{curlDir = hitRock.curlDir;hitRock.curlDir = -hitRock.curlDir;}
-                //hitRock.curlDir = -curlDir;
-                //curlDir = -curlDir;
-                curlVector.size = (c1Out - c2Out);
-                curlDir = Math.signum(curlVector.size);
-                curlVector.size = Math.abs(curlVector.size);
-                
-                hitRock.curlVector.size = (c2Out - c1Out);
-                hitRock.curlDir = Math.signum(curlVector.size);
-                hitRock.curlVector.size = Math.abs(curlVector.size); 
-                //System.out.println("curlDir["+curlDir+"] c1Out["+curlVector.size+
-                //        "]  hitCurlDir["+hitRock.curlDir+"] c2Out["+hitRock.curlVector.size+"]");
+                final double c1Out = fp1 * curlVector.size * curlDir;
+                final double c1In = curlVector.size-c1Out * curlDir;
+                final double c2Out = fp2 * hitRock.curlVector.size *hitRock.curlDir;
+                final double c2In = hitRock.curlVector.size-c2Out * hitRock.curlDir;
+
+                if(c1Out > c2Out){hitRock.curlDir = curlDir;curlDir = -curlDir;}
+                else{curlDir = hitRock.curlDir;hitRock.curlDir = -hitRock.curlDir;}
+                curlDir = Math.signum(c1In+c2Out);
+                curlVector.size = Math.abs(c1In + c2Out)-friction();
+                hitRock.curlDir = Math.signum(c1Out+c2In);
+                hitRock.curlVector.size = Math.abs(c1Out + c2In)-friction();
                 curlVector.setDelta();
                 hitRock.curlVector.setDelta();
 
