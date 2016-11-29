@@ -202,7 +202,7 @@ public class Rock{
                //****curl transfer section
                 final double c1Out = fp1 * curlVector.size * curlDir;
                 final double c1In = curlVector.size-c1Out * curlDir;
-                final double c2Out = fp2 * hitRock.curlVector.size *hitRock.curlDir;
+                final double c2Out = fp1 * hitRock.curlVector.size *hitRock.curlDir;
                 final double c2In = hitRock.curlVector.size-c2Out * hitRock.curlDir;
 
                 if(c1Out > c2Out){hitRock.curlDir = curlDir;curlDir = -curlDir;}

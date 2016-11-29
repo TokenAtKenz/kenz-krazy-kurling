@@ -18,6 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -356,10 +357,11 @@ public class KurlingFX2 extends Application {
         buttonCount+=2;
         ret.getChildren().add(aboutButton("?",
                  iceWide +aFoot*ofsX+2*diameter+4*padding
-                -(aFoot*2+padding),padding,aFoot-stroke,aFoot-2*stroke));
-        ret.getChildren().add(exitButton2("X",
-                iceWide +aFoot*ofsX+2*diameter+4*padding
-                -(aFoot+padding),padding,aFoot-stroke,aFoot-2*stroke));
+                //-(aFoot*2+padding),padding,aFoot-stroke,aFoot-2*stroke));
+                -(aFoot*2+padding),padding,2*aFoot-2*stroke,aFoot-2*stroke));
+        //ret.getChildren().add(exitButton2("X",
+        //        iceWide +aFoot*ofsX+2*diameter+4*padding
+        //        -(aFoot+padding),padding,aFoot-stroke,aFoot-2*stroke));
         vButtonHeight = (int)(buttonHeight*buttonCount+padding*paddingCount);
         
         return ret;
@@ -734,15 +736,17 @@ public class KurlingFX2 extends Application {
         Scene scene = new Scene(bp);
         scene.setFill((Color)appParams.get("sceneColor"));
        
-        stage.setTitle("Kenz Krazy Kurling ver 1.0");
+        stage.setTitle("Kenz Kurling FX Prototype version");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
+        
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.setX(mainScreenOffsetX);
         stage.setY(mainScreenOffsetY);
         stage.setWidth(iceWide +aFoot*ofsX+2*diameter+4*padding);
-        stage.setHeight(iceHigh+aFoot*(ofsY)+4*stroke+2*padding);
+        stage.setHeight(iceHigh+aFoot*(ofsY)+4*stroke+2*padding+aFoot);
        
+        stage.getIcons().add(new Image("http://69.7.252.41/KurlingFX/kurl48.png"));
         
         stage.show();    
     }  
