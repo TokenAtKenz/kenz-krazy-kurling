@@ -30,7 +30,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 /**
  * my 'kurling' stuff library
  */
@@ -182,8 +181,8 @@ public class KurlingFX2 extends Application {
             ret.set("image1","http://"+ip+"/KurlingFX/Ptolemy1.png");
             ret.set("image2","http://"+ip+"/KurlingFX/Ptolemy2.png");
             ret.set("image3","http://"+ip+"/KurlingFX/laserPig.png");
-            ret.set("player1","Token AtKenz");
-            ret.set("player2","Kurlin AtKenz");
+            ret.set("player1","Player 1");
+            ret.set("player2","Player 2");
             //ret.set("sceneColor",Color.MIDNIGHTBLUE);
             ret.set("maxSpeed",(double)8500);
             ret.set("maxCurl",(double)8500);
