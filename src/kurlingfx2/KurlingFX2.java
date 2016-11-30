@@ -186,9 +186,9 @@ public class KurlingFX2 extends Application {
             //ret.set("sceneColor",Color.MIDNIGHTBLUE);
             ret.set("maxSpeed",(double)8500);
             ret.set("maxCurl",(double)8500);
-            ret.set("sceneColor",Color.STEELBLUE);
-            ret.set("dnColor",Color.ROSYBROWN);
-            ret.set("hzColor",Color.ROSYBROWN);
+            //ret.set("sceneColor",Color.STEELBLUE);
+            //ret.set("dnColor",Color.ROSYBROWN);
+            //ret.set("hzColor",Color.ROSYBROWN);
        return ret;
     }
     
@@ -240,13 +240,6 @@ public class KurlingFX2 extends Application {
          Button ret = mkButton(s,x,y,w,h);
          ret.setId(s);
          ret.setFont(new Font("Arial Bold",aFoot*.6));
-         ret.setOnAction(e->System.exit(0));
-         return ret;
-    }
-    private Button exitButton2(String s,double x,double y,double w,double h){
-         Button ret = mkButton(s,x,y,w,h);
-         ret.setId(s);
-         ret.setFont(new Font("Arial Bold",aFoot*.525));
          ret.setOnAction(e->System.exit(0));
          return ret;
     }
@@ -356,11 +349,7 @@ public class KurlingFX2 extends Application {
         buttonCount+=2;
         ret.getChildren().add(aboutButton("?",
                  iceWide +aFoot*ofsX+2*diameter+4*padding
-                //-(aFoot*2+padding),padding,aFoot-stroke,aFoot-2*stroke));
-                -(aFoot*2+padding),padding,2*aFoot-2*stroke,aFoot-2*stroke));
-        //ret.getChildren().add(exitButton2("X",
-        //        iceWide +aFoot*ofsX+2*diameter+4*padding
-        //        -(aFoot+padding),padding,aFoot-stroke,aFoot-2*stroke));
+                 -(aFoot*2+padding),padding,2*aFoot-2*stroke,aFoot-2*stroke));
         vButtonHeight = (int)(buttonHeight*buttonCount+padding*paddingCount);
         
         return ret;
@@ -559,10 +548,9 @@ public class KurlingFX2 extends Application {
         Button btn = mkButton(startNewGame,x,y,w,h);
         btn.setFont(new Font("Arial Bold",aFoot*.6));
         btn.setOnAction(e->{
-               String btnStr,retStr;
+               String btnStr;
                btnStr = (String)btn.getText(); 
                System.out.println(btnStr);
-               retStr = btnStr;
                switch(btnStr){
                    case startNewGame:
                         //System.out.println(btnStr+" case");
@@ -733,7 +721,7 @@ public class KurlingFX2 extends Application {
         bp.setEffect(new DropShadow());
         
         Scene scene = new Scene(bp);
-        scene.setFill((Color)appParams.get("sceneColor"));
+        scene.setFill((Color)appParams.get("sceneColor",Color.STEELBLUE));
        
         stage.setTitle("Kenz Kurling FX Prototype version");
         stage.setScene(scene);

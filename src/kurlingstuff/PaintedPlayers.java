@@ -40,14 +40,16 @@ public class PaintedPlayers extends Canvas {
         g.setStroke(Color.BLACK);
         g.strokeOval(padding+stroke,1.5*padding+stroke,sl,sl);
         g.setStroke(Color.LIME);
-        String s =  (String)params.get("player1");
+        String s =  (String)params.get("player1","Player #1");
+       
         g.strokeText(s,4*padding,3*padding,w-2*aFoot-padding);
         
         g.setFill(Color.RED);
         g.fillOval(padding,h-3.25*padding,2*padding,2*padding);
         g.setStroke(Color.BLACK);
         g.strokeOval(padding+stroke,h-3.25*padding+stroke,sl,sl);
-        s = (String)params.get("player2");
+        s = (String)params.get("player2","Player #2");
+       
         g.setStroke(Color.LIME);
         g.strokeText(s,4*padding,h-1.5*padding,w-2*aFoot-padding);   
     }

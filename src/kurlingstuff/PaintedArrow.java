@@ -39,7 +39,7 @@ public class PaintedArrow extends Canvas {
         int padding = (int)params.get("padding");
         int aFoot = (int)params.get("footSize");
         int stroke = (int)params.get("stroke");
-        Color fillColor = (Color)params.get("dnColor");
+        Color fillColor = (Color)params.get("dnColor",Color.ROSYBROWN);
         final int pSize = 7;
         double[] xPts = new double[pSize];
         double[] yPts = new double[pSize];
@@ -66,7 +66,7 @@ public class PaintedArrow extends Canvas {
     private void drawLArrow(KurlParams params, int w, int h) {
         int padding = (int)params.get("padding");
         int stroke = (int)params.get("stroke");
-        Color fillColor = (Color)params.get("hzColor");
+        Color fillColor = (Color)params.get("hzColor",Color.ROSYBROWN);
         int pSize = 7;
         double[] xp = new double[pSize];
         double[] yp = new double[pSize];
@@ -85,7 +85,7 @@ public class PaintedArrow extends Canvas {
     private void drawRArrow(KurlParams params, int w, int h) {
         int padding = (int)params.get("padding");
         int stroke = (int)params.get("stroke");
-        Color fillColor = (Color)params.get("hzColor");
+        Color fillColor = (Color)params.get("hzColor",Color.ROSYBROWN);
         int pSize = 7;
         double[] xp = new double[pSize];
         double[] yp = new double[pSize];

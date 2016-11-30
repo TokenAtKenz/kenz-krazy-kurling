@@ -47,6 +47,11 @@ public class KurlParams extends ArrayList{
         return ret;
     }
     
+   public Object get(String key,Object def){
+       Object ret = get(key);
+       if(ret==null){return def;}
+       else{return ret;}
+   }
 
     public class KeyValuePair implements Comparable{
        public String key;
