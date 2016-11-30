@@ -30,6 +30,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 /**
  * my 'kurling' stuff library
  */
@@ -89,7 +90,7 @@ public class KurlingFX2 extends Application {
     private Group bumpers;
     private Group theButtons;
     private int rocksInPlay = 0;
-    private final int initialRockSpeed=3;
+    private final int initialRockSpeed=1;
     private final int initialCurlSpeed=0;
     private int currentEnd = 1;
     private int redScore = 0;
@@ -155,7 +156,7 @@ public class KurlingFX2 extends Application {
             ret.set("frameLenth",frameLength);
             ret.set("ofsX",ofsX*aFoot+padding);
             ret.set("ofsY",ofsY*aFoot+padding);
-            ret.set("baseFriction",(double)0.007);//(aFoot * 0.001));
+            ret.set("baseFriction",(double)0.006);//(aFoot * 0.001));
             ret.set("curlFricFrac",(double)0.70); //curl friction % of friction
             ret.set("fricFrac",(double)0.30); //% friction variance to the edges
             ret.set("curlRatioSize",(double)0.15); //curl factor on forward motion
@@ -181,10 +182,10 @@ public class KurlingFX2 extends Application {
             ret.set("image1","http://"+ip+"/KurlingFX/Ptolemy1.png");
             ret.set("image2","http://"+ip+"/KurlingFX/Ptolemy2.png");
             ret.set("image3","http://"+ip+"/KurlingFX/laserPig.png");
-            ret.set("player1","Player 1");
-            ret.set("player2","Player 2");
+            //ret.set("player1","Player 1");
+            //ret.set("player2","Player 2");
             //ret.set("sceneColor",Color.MIDNIGHTBLUE);
-            ret.set("maxSpeed",(double)8500);
+            ret.set("maxSpeed",(double)6500);
             ret.set("maxCurl",(double)8500);
             //ret.set("sceneColor",Color.STEELBLUE);
             //ret.set("dnColor",Color.ROSYBROWN);
@@ -250,48 +251,32 @@ public class KurlingFX2 extends Application {
          
          ret.setOnAction((ActionEvent e) -> {
              Alert alert = new Alert(AlertType.INFORMATION);
-             alert.setTitle("Kenz JavaFX Kurling");
+             alert.setTitle(" Kenz JavaFX Kurling");
+             alert.initStyle(StageStyle.UTILITY);
              alert.setHeaderText(null);
-             Text t = new Text();
-             t.setFont(new Font(20));
-             
-             t.setWrappingWidth(alert.getWidth() - 4* aFoot);
-             t.setTextAlignment(TextAlignment.CENTER);
-             t.setText("KurlingFX.in.JavaFX  Verision.1.0    "+
-                         "      copyright.c.2016.BETA-VERSION       "+
-                         "          all.rights.reserved             "+
-                         "       for.testing.and.demo.only.         "+
-                         "       mailTo:ken_in_van@hotmail.com");
-             alert.setContentText(t.getText());
+             alert.setContentText("KurlingFX.in.JavaFX  Verision.1.0 "+
+                                       "copyright.c.2016.BETA-VERSION     "+
+                                       "all.rights.reserved               "+
+                                       "for.testing.and.demo.only.        "+
+                                       "mailTo:ken_in_van@hotmail.com     ");
              alert.showAndWait();
          });
          return ret;
     } 
-    /**
-     * returns ON if the value is False, and OFF if the value is true.
-     * the purpose is to make the action buttons say what they will do, not 
-     * what the variable is currently set at. Keeps the ! out of it.
-     * @param b     boolean
-     * @return      String  (false=ON,true=OFF)
-     */
-    private String onOff(boolean b){
-        if(b){return "OFF";}
-        else {return "ON";}
-    }
-    private Button sideButton(String s,double x,double y,double w,double h){
+    
+    private Button sidesOnOffButton(String s,double x,double y,double w,double h){
          Button ret = mkButton(s,x,y,w,h);
          ret.setId(s);
          ret.setOnAction(e->{
             walls = walls^SIDES;
             changeBumper(walls);
-            String ts = onOff((walls&SIDES) == SIDES);
-            if(ts.equals("ON")){
-                ret.setText("Put Sides UP");
-            } else{ret.setText("Put Sides DOWN");}
+            if((walls&SIDES) == SIDES){
+                ret.setText("Put Sides DOWN");
+            } else{ret.setText("Put Sides UP");}
          });
          return ret;
     }
-    private Button backButton(String s,double x,double y,double w,double h){
+    private Button endsOnOffButton(String s,double x,double y,double w,double h){
          Button ret = mkButton(s,x,y,w,h);
          ret.setId(s);
          ret.setOnAction(e->{
@@ -299,10 +284,9 @@ public class KurlingFX2 extends Application {
             walls = walls^(w2);
             
             changeBumper(walls);
-            String ts = onOff((walls&w2) == w2);
-            if(ts.equals("ON")){
-                ret.setText("Put Ends UP");
-            } else{ret.setText("Put Ends DOWN");}
+            if((walls&w2) == w2){
+                ret.setText("Put Ends DOWN");
+            } else{ret.setText("Put Ends UP");}
          });
          return ret;
     }
@@ -337,9 +321,9 @@ public class KurlingFX2 extends Application {
         playButton = getPlayButton(rocks,locX,locY,w,h*3);
         ret.getChildren().add(playButton);
         locY += (padding*2+h*3);buttonCount+=3;paddingCount+=3;
-        ret.getChildren().add(sideButton("Put Sides UP",locX,locY,w,h));
+        ret.getChildren().add(sidesOnOffButton("Put Sides UP",locX,locY,w,h));
         locY += (padding+h);buttonCount++;paddingCount++;
-        ret.getChildren().add(backButton("Put Ends UP",locX,locY,w,h));
+        ret.getChildren().add(endsOnOffButton("Put Ends UP",locX,locY,w,h));
         locY += (padding+h);buttonCount++;paddingCount++;
         ret.getChildren().add(demoButton(rocks,locX,locY,w,h));
         locY += (padding*2+h);buttonCount++;paddingCount+=2;
@@ -457,7 +441,6 @@ public class KurlingFX2 extends Application {
     private Group getAds(){
         Group ret = new Group();
         ret.setId("getAdsGroup");
-        int w = 4*aFoot; int h=6*aFoot;
         ret.getChildren().add(mkUrlAd((String)appParams.get("image1"),"image1"));
         ret.getChildren().add(mkUrlAd((String)appParams.get("image2"),"image2"));
         ret.getChildren().add(mkUrlAd((String)appParams.get("image3"),"image3"));
@@ -628,7 +611,7 @@ public class KurlingFX2 extends Application {
             bumpers.setId("bumpers");
             bumpers.setLayoutX(ofsX*aFoot+padding);
             bumpers.setLayoutY(ofsY*aFoot+padding);
-        changeBumper(walls);    
+            changeBumper(walls);    
         root.getChildren().add(bumpers);
         
         PaintedRockGroup bagOfPaintedRocks = new PaintedRockGroup(appParams);
@@ -639,27 +622,24 @@ public class KurlingFX2 extends Application {
             theButtons.setId("theButtons");
         root.getChildren().add(theButtons);
         
-        PaintedArrow downArrow = new PaintedArrow(appParams,aFoot,
+        PaintedArrow anArrow = new PaintedArrow(appParams,aFoot,
                                           vButtonHeight+2*aFoot-2*stroke,0);
-            downArrow.setId("downArrow");
-            downArrow.setLayoutX(ofsX*aFoot+padding-aFoot-stroke);
-            downArrow.setLayoutY(ofsY*aFoot+padding+1);
-        root.getChildren().add(downArrow);
+            anArrow.setId("downArrow");
+            anArrow.setLayoutX(ofsX*aFoot+padding-aFoot-stroke);
+            anArrow.setLayoutY(ofsY*aFoot+padding+1);
+        root.getChildren().add(anArrow);
         
-         
+        anArrow = new PaintedArrow(appParams,7*aFoot,aFoot,1);
+            anArrow.setId("leftArrow");
+            anArrow.setLayoutX(ofsX*aFoot+padding);
+            anArrow.setLayoutY(ofsY*aFoot+padding-aFoot);
+        root.getChildren().add(anArrow);
         
-        
-        PaintedArrow leftArrow = new PaintedArrow(appParams,7*aFoot,aFoot,1);
-            leftArrow.setId("leftArrow");
-            leftArrow.setLayoutX(ofsX*aFoot+padding);
-            leftArrow.setLayoutY(ofsY*aFoot+padding-aFoot);
-        root.getChildren().add(leftArrow);
-        
-        PaintedArrow rightArrow = new PaintedArrow(appParams,7*aFoot,aFoot,2);
-            rightArrow.setId("rightArrow");
-            rightArrow.setLayoutX((7+ofsX)*aFoot+padding+2*stroke);
-            rightArrow.setLayoutY(ofsY*aFoot+padding-aFoot);
-        root.getChildren().add(rightArrow);
+        anArrow = new PaintedArrow(appParams,7*aFoot,aFoot,2);
+            anArrow.setId("rightArrow");
+            anArrow.setLayoutX((7+ofsX)*aFoot+padding+2*stroke);
+            anArrow.setLayoutY(ofsY*aFoot+padding-aFoot);
+        root.getChildren().add(anArrow);
         
         scrollBars = getScrollBars();
             scrollBars.setId("scrollBars");
@@ -731,7 +711,7 @@ public class KurlingFX2 extends Application {
         stage.setX(mainScreenOffsetX);
         stage.setY(mainScreenOffsetY);
         stage.setWidth(iceWide +aFoot*ofsX+2*diameter+4*padding);
-        stage.setHeight(iceHigh+aFoot*(ofsY)+4*stroke+2*padding+aFoot);
+        stage.setHeight(iceHigh+aFoot*ofsY+4*stroke+2*padding+aFoot);
        
         stage.getIcons().add(new Image("http://69.7.252.41/KurlingFX/kurl48.png"));
         
