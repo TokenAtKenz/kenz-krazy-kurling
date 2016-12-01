@@ -5,7 +5,6 @@
  */
 package kurlingstuff;
 
-import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -32,8 +31,8 @@ public class PaintedRock extends Canvas {
     private final boolean hset = false;
     private final boolean sset = false;
     private KurlParams params;
-    private SequentialTransition lastShot = null;
-    private boolean freeGuard;
+    //private SequentialTransition lastShot = null;
+    //private boolean freeGuard;
     //private final Rectangle2D hackRect;
     
     /**
@@ -52,7 +51,6 @@ public class PaintedRock extends Canvas {
         pCenter[x]=diameter/2;
         pCenter[y]=diameter/2;
         rock = newRock(params);
-        freeGuard = false;
         paintRock();
     }
    @Override
@@ -79,28 +77,24 @@ public class PaintedRock extends Canvas {
         return Integer.valueOf(tokens[2]);
    }
    /**
-    * used by paintedBroom to move the rock. Movement is limited to make
-    * guards viable. 
+    * * currently only used by paintedBroom to move the rock. 
+    * Movement is limited in the brooms method to make
+    * guards viable.  Future use would be to put back a rock when the 5 rock rule is
+    * ever implemented.
     * 
-    * @param mv  double adjust horizontal by moving to X = mv
-    * 
+    * @param mvX double new X Location
+    * @param mvY double new Y Location 
     */
    public void moveRock(double mvX,double mvY){  //used by painted broom to set the rock
-       Duration d = Duration.millis(17);
        rock.center[x] = mvX;
        rock.center[y] = mvY;
-       TranslateTransition t = new TranslateTransition(d, PaintedRock.this);
+       TranslateTransition t = new TranslateTransition(Duration.millis(17),this);
        t.setToX(rock.center[x]);
        t.setToY(rock.center[y]);
        t.play(); 
       }
       
-   
-   
-    public boolean replayAvail(){
-        return hset && sset;
-    }
-    
+      
     private Rock newRock(KurlParams param){
         param.set("rockAngle",(double)0.0);
         param.set("curlAngle",(double)0.0);

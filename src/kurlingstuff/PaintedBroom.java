@@ -33,7 +33,7 @@ public class PaintedBroom extends Canvas{
        centerX = (int)params.get("ofsX")+
                              (int)params.get("iceWide")/2 -
                              (double)params.get("radius");
-        xDiff = (int)params.get("iceWide") * .12;
+        xDiff = (int)params.get("iceWide") *.20; //.12; //rock movement behind hog line
         paintBroom(params);
         
         this.setOnMouseDragged(e->{
@@ -56,19 +56,9 @@ public class PaintedBroom extends Canvas{
         this.setLayoutX(e.getSceneX());
         this.setLayoutY(e.getSceneY());
         double newX;
-        
-       
         int x=0,y=1;
             if(pRock != null){
-                
-                //System.out.println(".....");
-                //System.out.println("xDiff "+xDiff);
-                //System.out.println("rock center[x]"+pRock.rock.center[x]);
-                //System.out.println("rock min "+pRock.rock.min[x]);
-                //System.out.println("rock max "+pRock.rock.max[x]);
-                //System.out.println("broom e.getSceneX() "+e.getSceneX());
-                //newX = pRock.rock.center[x];
-                if(e.getSceneX() < centerX - xDiff){
+             if(e.getSceneX() < centerX - xDiff){
                   newX = centerX - xDiff;
                 } else { if(e.getSceneX()> centerX + xDiff){
                            newX = centerX+xDiff;

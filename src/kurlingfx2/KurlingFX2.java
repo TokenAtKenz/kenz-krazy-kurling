@@ -156,8 +156,8 @@ public class KurlingFX2 extends Application {
             ret.set("frameLenth",frameLength);
             ret.set("ofsX",ofsX*aFoot+padding);
             ret.set("ofsY",ofsY*aFoot+padding);
-            ret.set("baseFriction",(double)0.006);//(aFoot * 0.001));
-            ret.set("curlFricFrac",(double)0.70); //curl friction % of friction
+            ret.set("baseFriction",(double)0.005);//(aFoot * 0.001));
+            ret.set("curlFricFrac",(double)0.8); //curl friction % of friction
             ret.set("fricFrac",(double)0.30); //% friction variance to the edges
             ret.set("curlRatioSize",(double)0.15); //curl factor on forward motion
             ret.set("thud",(double).78);
