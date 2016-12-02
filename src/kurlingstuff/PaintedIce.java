@@ -49,6 +49,8 @@ public class PaintedIce extends Canvas{
     
     private void paintAds(KurlParams params,Group iceAds){
         double aFoot = (int)params.get("footSize");
+        int iceWide = (int)params.get("iceWide");
+        int padding = (int)params.get("padding");
         Iterator ads = iceAds.getChildren().iterator();
         ImageView iv;
         double xofs;
@@ -74,7 +76,7 @@ public class PaintedIce extends Canvas{
                         starty = (8*aFoot - yofs)/2;
                         ih = yofs;}
                     getGraphicsContext2D().
-                    drawImage(im,aFoot+startx,5*aFoot+starty,iw,ih);
+                    drawImage(im,startx+aFoot,5*aFoot+starty,iw,ih);
                     break;
                 case "image2":
                     iw = 5*aFoot;
@@ -86,7 +88,8 @@ public class PaintedIce extends Canvas{
                         starty = (8*aFoot - yofs)/2;
                         ih = yofs;}
                     getGraphicsContext2D().
-                            drawImage(im,8*aFoot+startx,5*aFoot+starty,iw,ih);
+                            drawImage(im,startx+iceWide-(6*aFoot)+padding,
+                                        5*aFoot+starty,iw,ih);
                     break;
                 case "image3":
                     iw = aFoot;
@@ -98,7 +101,7 @@ public class PaintedIce extends Canvas{
                         starty = (aFoot - yofs)/2;
                         ih = yofs;}
                     getGraphicsContext2D().
-                            drawImage(im,6.5*aFoot+startx,22.5*aFoot+starty,iw,ih);
+                            drawImage(im,(iceWide/2 - aFoot/2)+startx,22.5*aFoot+starty,iw,ih);
                     break;
                 default: break;
             }
@@ -125,7 +128,7 @@ public class PaintedIce extends Canvas{
         backLine[endX]=teeLine[endX];
         backLine[endY]=backLine[y];
         
-        centerLine[x]=strk+7*aFoot;
+        centerLine[x]=strk+(int)(7.5*aFoot);
         centerLine[y]=strk; 
         centerLine[endX]=centerLine[x];
         centerLine[endY]=strk+rinkHigh; 
@@ -139,7 +142,7 @@ public class PaintedIce extends Canvas{
     
     private int[] iceMax(int aFoot,int strk){
         int[] max = new int[2];
-        max[x] = 14*aFoot - strk;
+        max[x] = 15*aFoot - strk;
         max[y] = 31*aFoot - strk;
         return max;
     }
@@ -172,8 +175,10 @@ public class PaintedIce extends Canvas{
                     rinkHeight+doubleStrk);
         g.setFill(iceColor);
         g.fillRect(strk,strk,rinkWidth,rinkHeight);
-        g.setStroke(red);
         g.setLineWidth(strk);
+        g.setStroke(black);
+        g.strokeLine(backLine[x],backLine[y],backLine[endX],backLine[endY]);
+        g.setStroke(red);
         x1=twelveFoot[x];
         y1=twelveFoot[y];
         fts = 12*aFoot;
@@ -203,7 +208,6 @@ public class PaintedIce extends Canvas{
         g.setStroke(black);   //draw the lines
         g.strokeLine(hogLine[x],hogLine[y],hogLine[endX],hogLine[endY]);
         g.strokeLine(teeLine[x],teeLine[y],teeLine[endX],teeLine[endY]);
-        g.strokeLine(backLine[x],backLine[y],backLine[endX],backLine[endY]);
         g.strokeLine(centerLine[x],centerLine[y],centerLine[endX],centerLine[endY]);
        
         g.setLineDashes(radius/3);

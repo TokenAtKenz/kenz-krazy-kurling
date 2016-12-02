@@ -90,8 +90,8 @@ public class KurlingFX2 extends Application {
     private Group bumpers;
     private Group theButtons;
     private int rocksInPlay = 0;
-    private final int initialRockSpeed=1;
-    private final int initialCurlSpeed=0;
+    private final int initialRockSpeed= 2;
+    private final int initialCurlSpeed= 0;
     private int currentEnd = 1;
     private int redScore = 0;
     private int yellowScore = 0;
@@ -116,7 +116,7 @@ public class KurlingFX2 extends Application {
         stroke = aFoot/12;
         numRocks = 16;
         iceHigh = 31*aFoot;
-        iceWide = 14*aFoot;
+        iceWide = 15*aFoot;
         frameLength = 17;
         walls = TOP + BOTTOM + SIDES;
     }
@@ -156,7 +156,7 @@ public class KurlingFX2 extends Application {
             ret.set("frameLenth",frameLength);
             ret.set("ofsX",ofsX*aFoot+padding);
             ret.set("ofsY",ofsY*aFoot+padding);
-            ret.set("baseFriction",(double)0.005);//(aFoot * 0.001));
+            ret.set("baseFriction",(double)0.0067);//(aFoot * 0.001));
             ret.set("curlFricFrac",(double)0.8); //curl friction % of friction
             ret.set("fricFrac",(double)0.30); //% friction variance to the edges
             ret.set("curlRatioSize",(double)0.15); //curl factor on forward motion
@@ -185,7 +185,7 @@ public class KurlingFX2 extends Application {
             //ret.set("player1","Player 1");
             //ret.set("player2","Player 2");
             //ret.set("sceneColor",Color.MIDNIGHTBLUE);
-            ret.set("maxSpeed",(double)6500);
+            ret.set("maxSpeed",(double)7500);
             ret.set("maxCurl",(double)8500);
             //ret.set("sceneColor",Color.STEELBLUE);
             //ret.set("dnColor",Color.ROSYBROWN);
@@ -243,6 +243,15 @@ public class KurlingFX2 extends Application {
          ret.setFont(new Font("Arial Bold",aFoot*.6));
          ret.setOnAction(e->System.exit(0));
          return ret;
+    }
+    private Button replayButton(PaintedRockGroup pg,String s,double x,double y,double w,double h){
+        Button ret = mkButton(s,x,y,w,h);
+        ret.setId(s);
+        ret.setFont(new Font("Arial Bold",aFoot*.45));
+        ret.setOnAction(e->{
+            pg.savedShot.ReplayShot();
+            });
+        return ret;
     }
     private Button aboutButton(String s,double x,double y,double w,double h){
          Button ret = mkButton(s,x,y,w,h);
@@ -336,6 +345,12 @@ public class KurlingFX2 extends Application {
                  -(aFoot*2+padding),padding,2*aFoot-2*stroke,aFoot-2*stroke));
         vButtonHeight = (int)(buttonHeight*buttonCount+padding*paddingCount);
         
+        ret.getChildren().add(replayButton(rocks,"REPLAY",
+                3*aFoot+2*padding,19*aFoot+padding,
+                3*aFoot-2*padding,
+                aFoot * 1.5
+                ));
+        
         return ret;
     }
     
@@ -363,7 +378,7 @@ public class KurlingFX2 extends Application {
         double locY = ofsY * aFoot + padding+stroke;
         Orientation o = Orientation.VERTICAL;  
         double max = (double)appParams.get("maxSpeed");
-        double min = 0;
+        double min = 1500;
         double minW = aFoot;
         double minH = buttonHeight*buttonCount+padding*paddingCount+2*aFoot+padding;
         ret.getChildren().add(mkScrollBar(locX,locY,o,max,min,minH,minW,"SpeedBar"));
@@ -372,7 +387,7 @@ public class KurlingFX2 extends Application {
         locY = padding;
         o = Orientation.HORIZONTAL;
         max = (double)appParams.get("maxCurl");min = -max;
-        minH = aFoot; minW = aFoot*14;
+        minH = aFoot; minW = aFoot*15;
         ScrollBar sb = mkScrollBar(locX,locY,o,max,min,minH,minW,"CurlBar");
         sb.setVisible(true);
         ret.getChildren().add(sb);
@@ -438,12 +453,22 @@ public class KurlingFX2 extends Application {
         return iv;
     }
     
+    private ImageView mkStrmAd(String s,String id){
+        Image image = new Image(getClass().getResourceAsStream(s));
+        ImageView iv = new ImageView(image);
+        iv.autosize();
+        iv.setId(id);
+        return iv;
+    }
     private Group getAds(){
         Group ret = new Group();
         ret.setId("getAdsGroup");
         ret.getChildren().add(mkUrlAd((String)appParams.get("image1"),"image1"));
         ret.getChildren().add(mkUrlAd((String)appParams.get("image2"),"image2"));
         ret.getChildren().add(mkUrlAd((String)appParams.get("image3"),"image3"));
+        
+        //ret.getChildren().add(mkStrmAd("/src/pictures/rabbit48.png","image3"));
+        
         return ret;
     }
     private void changeBumper(int w){
@@ -603,7 +628,7 @@ public class KurlingFX2 extends Application {
         
         pw = new PaintedWatermark(appParams,5*aFoot,2*aFoot);
             pw.setId("rightWatermark");
-            pw.setLayoutX(ofsX*aFoot + 8*aFoot);
+            pw.setLayoutX(ofsX*aFoot+(iceWide+2*padding+2*stroke)-6*aFoot);
             pw.setLayoutY(ofsY*aFoot + padding);
         root.getChildren().add(pw);
         
@@ -629,15 +654,15 @@ public class KurlingFX2 extends Application {
             anArrow.setLayoutY(ofsY*aFoot+padding+1);
         root.getChildren().add(anArrow);
         
-        anArrow = new PaintedArrow(appParams,7*aFoot,aFoot,1);
+        anArrow = new PaintedArrow(appParams,iceWide/2,aFoot,1);
             anArrow.setId("leftArrow");
             anArrow.setLayoutX(ofsX*aFoot+padding);
             anArrow.setLayoutY(ofsY*aFoot+padding-aFoot);
         root.getChildren().add(anArrow);
         
-        anArrow = new PaintedArrow(appParams,7*aFoot,aFoot,2);
+        anArrow = new PaintedArrow(appParams,iceWide/2,aFoot,2);
             anArrow.setId("rightArrow");
-            anArrow.setLayoutX((7+ofsX)*aFoot+padding+2*stroke);
+            anArrow.setLayoutX(ofsX*aFoot+iceWide/2+padding+2*stroke);
             anArrow.setLayoutY(ofsY*aFoot+padding-aFoot);
         root.getChildren().add(anArrow);
         

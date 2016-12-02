@@ -5,6 +5,7 @@
  */
 package kurlingstuff;
 
+import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -31,8 +32,8 @@ public class PaintedRock extends Canvas {
     private final boolean hset = false;
     private final boolean sset = false;
     private KurlParams params;
-    //private SequentialTransition lastShot = null;
-    //private boolean freeGuard;
+    private SequentialTransition lastShot = null;
+    private double[] startAt = {0,0};
     //private final Rectangle2D hackRect;
     
     /**
@@ -76,6 +77,8 @@ public class PaintedRock extends Canvas {
        String[] tokens = getId().split("[ ]+");
         return Integer.valueOf(tokens[2]);
    }
+   
+   
    /**
     * * currently only used by paintedBroom to move the rock. 
     * Movement is limited in the brooms method to make

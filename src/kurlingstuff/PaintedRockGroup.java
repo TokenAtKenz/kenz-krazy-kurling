@@ -28,6 +28,8 @@ public class PaintedRockGroup extends Group{
     private final double[] btnLoc;
     private final double aFoot;
     private final double ringRadius;
+    
+    public SavedShot savedShot = null;
 /**
  * Constructor builds a group of PaintedRocks
  * @param params    KurlParams
@@ -186,6 +188,7 @@ public class PaintedRockGroup extends Group{
     public SequentialTransition shotSequence(KurlParams params,PaintedRock pRock){
         SequentialTransition retSeq = new SequentialTransition();
         Duration runTime = Duration.millis(17);
+        
         int rockWalls = (int)params.get("walls");
         pRock.rock.curlDir = (double)params.get("curlDir");
         pRock.rock.rockVector.size = (double)params.get("rockVectorSize");
@@ -196,8 +199,9 @@ public class PaintedRockGroup extends Group{
         pRock.rock.curlVector.setDelta();
         pRock.rock.setWalls(rockWalls);
         pRock.rock.setMoveable(true);
-        retSeq.getChildren().add(parallelSequence(pRock,runTime));
         
+        ArrayList savedRocks = makeSavedShot();
+        retSeq.getChildren().add(parallelSequence(pRock,runTime));
         pRock.rock.move(rocks());
         
         ParallelTransition groupSeq;
@@ -226,7 +230,7 @@ public class PaintedRockGroup extends Group{
                 if(!aRock.rock.stopped()){stop = false;}
                 }   
             }
-        
+        savedShot = new SavedShot(retSeq,savedRocks);
         return retSeq;
     }
 /**
@@ -365,4 +369,17 @@ public class PaintedRockGroup extends Group{
           getChildren().add(pRock);
          }
     } 
+
+    private ArrayList makeSavedShot() {
+        ArrayList ret = new ArrayList();
+        PaintedRock pRock;
+        Iterator rocks = getChildren().iterator();
+        while(rocks.hasNext()){
+            pRock = (PaintedRock)rocks.next();
+            if(pRock.rock.isMoveable()){
+                ret.add(pRock);
+            }
+        }
+        return ret;
+    }
 }
